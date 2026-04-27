@@ -5,4 +5,4 @@ Student ID: COBSCCOMP242P-051
 Module: Web API Development  
 
 ## Project Overview
-[cite_start]A RESTful API developed to support the Sri Lanka Police in real-time tuk-tuk movement logging and investigative analysis
+A RESTful API developed to support the Sri Lanka Police in real-time tuk-tuk movement logging and investigative analysis
