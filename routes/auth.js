@@ -6,3 +6,4 @@ router.post('/register', authController.register);
 router.post('Login', authController.Login);
 
 module.exports = router;
+
