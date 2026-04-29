@@ -1,4 +1,4 @@
-const TukTuk = require('../models'/TukTuk);
+/**const TukTuk = require('../models'/TukTuk);
 
 //GET all tuktuks
 exports.getAllTuktuks = async (req, res) => {
@@ -67,3 +67,4 @@ exports.deleteTuktuk = async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 };
+*/
