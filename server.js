@@ -6,10 +6,14 @@ const swaggerJsdoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 
 // Import Routes
-const authRoutes = require('./routes/auth');
-const tuktukRoutes = require('./routes/tuktuk');
-const locationRoutes = require('./routes/location');
-const adminRoutes = require('./routes/admin');
+// server.js (located in the root folder)
+
+// server.js (at the root level)
+
+const authRoutes = require('./src/routes/auth');
+const tuktukRoutes = require('./src/routes/tuktuk');
+const locationRoutes = require('./src/routes/location'); 
+const adminRoutes = require('./src/routes/admin');          
 
 // Create Express App
 const app = express();
