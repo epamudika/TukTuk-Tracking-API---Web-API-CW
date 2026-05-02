@@ -6,10 +6,14 @@ const swaggerJsdoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 
 // Import Routes
-const authRoutes = require('./routes/auth');
-const tuktukRoutes = require('./routes/tuktuk');
-const locationRoutes = require('./routes/location');
-const adminRoutes = require('./routes/admin');
+// server.js (located in the root folder)
+
+// server.js (at the root level)
+
+const authRoutes = require('./src/routes/auth');
+const tuktukRoutes = require('./src/routes/tuktuk');
+const locationRoutes = require('./src/routes/location'); 
+const adminRoutes = require('./src/routes/admin');          
 
 // Create Express App
 const app = express();
@@ -72,7 +76,14 @@ app.get('/', (req, res) => {
 });
 
 // Start Server
+
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+
+// ONLY start the server if this file is run directly (not by Jest)
+if (process.env.NODE_ENV !== 'test') {
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+}
+
+module.exports = app;
