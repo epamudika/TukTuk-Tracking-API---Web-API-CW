@@ -6,14 +6,18 @@ const swaggerJsdoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 
 // Import Routes
-// server.js (located in the root folder)
-
-// server.js (at the root level)
-
 const authRoutes = require('./src/routes/auth');
 const tuktukRoutes = require('./src/routes/tuktuk');
 const locationRoutes = require('./src/routes/location'); 
-const adminRoutes = require('./src/routes/admin');          
+const adminRoutes = require('./src/routes/admin');
+
+// New Routes for Swagger visibility
+const provinceRoutes = require('./src/routes/provinces');
+const districtRoutes = require('./src/routes/districts');
+const policeStationRoutes = require('./src/routes/policeStations');
+//const anomalyRoutes = require('./src/routes/anomalies');
+
+        
 
 // Create Express App
 const app = express();
@@ -50,7 +54,7 @@ const swaggerOptions = {
       bearerAuth: []
     }]
   },
-  apis: ['./routes/*.js'],
+  apis: ['./src/routes/*.js'],
 };
 
 const swaggerSpec = swaggerJsdoc(swaggerOptions);
@@ -67,6 +71,12 @@ app.use('/api/tuktuks', tuktukRoutes);
 app.use('/api/locations', locationRoutes);
 app.use('/api/admin', adminRoutes);
 
+// Register New Endpoints
+app.use('/api/provinces', provinceRoutes);
+app.use('/api/districts', districtRoutes);
+app.use('/api/police-stations', policeStationRoutes);
+//app.use('/api/anomalies', anomalyRoutes);
+
 // Home Route
 app.get('/', (req, res) => {
   res.json({ 
@@ -76,10 +86,8 @@ app.get('/', (req, res) => {
 });
 
 // Start Server
-
 const PORT = process.env.PORT || 5000;
 
-// ONLY start the server if this file is run directly (not by Jest)
 if (process.env.NODE_ENV !== 'test') {
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
