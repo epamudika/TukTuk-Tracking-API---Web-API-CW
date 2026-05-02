@@ -3,6 +3,38 @@ const router = express.Router();
 const TukTuk = require('../models/TukTuk');
 const { protect, adminOnly, officerOrAdmin, deviceOnly } = require('../middleware/authMiddleware');
 
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     TukTuk:
+ *       type: object
+ *       required:
+ *         - registrationNumber
+ *         - driverName
+ *         - driverNIC
+ *       properties:
+ *         id:
+ *           type: string
+ *           description: The auto-generated id of the TukTuk
+ *         registrationNumber:
+ *           type: string
+ *           description: The vehicle registration number (e.g., WP-TUK-1234)
+ *         driverName:
+ *           type: string
+ *         driverNIC:
+ *           type: string
+ *         phone:
+ *           type: string
+ *         province:
+ *           type: string
+ *         district:
+ *           type: string
+ *         isActive:
+ *           type: boolean
+ */
+
 /**
  * @swagger
  * /api/tuktuks:

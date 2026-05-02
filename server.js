@@ -35,6 +35,17 @@ const swaggerOptions = {
       version: '1.0.0',
       description: 'Real-Time TukTuk Tracking API for Sri Lanka Police',
     },
+
+    tags: [
+      { name: 'Auth', description: 'Authentication — login and registration' },
+      { name: 'Admin', description: 'User account management' },
+      { name: 'Tuktuks', description: 'TukTuk registration and management' },
+      { name: 'Locations', description: 'Real-time tracking and history' },
+      { name: 'Provinces', description: 'Province administration' },
+      { name: 'Districts', description: 'District administration' },
+      { name: 'Police Stations', description: 'Police station administration' }
+    ],
+
     servers: [
       {
         url: 'http://localhost:5000',
