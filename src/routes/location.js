@@ -5,6 +5,35 @@ const locationController = require('../controllers/location.controller');
 
 /**
  * @swagger
+ * components:
+ *   schemas:
+ *     PoliceStation:
+ *       type: object
+ *       properties:
+ *         name:
+ *           type: string
+ *         districtCode:
+ *           type: string
+ *     LocationPing:
+ *       type: object
+ *       required:
+ *         - tuktukId
+ *         - latitude
+ *         - longitude
+ *       properties:
+ *         tuktukId:
+ *           type: string
+ *         latitude:
+ *           type: number
+ *         longitude:
+ *           type: number
+ *         timestamp:
+ *           type: string
+ *           format: date-time
+ */
+
+/**
+ * @swagger
  * /api/locations/ping:
  *   post:
  *     summary: Send GPS location ping
