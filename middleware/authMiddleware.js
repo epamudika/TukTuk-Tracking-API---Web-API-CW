@@ -33,10 +33,20 @@ const adminOnly = (req, res, next) => {
 // Officers and admin access
 const officerOrAdmin = (req, res, next) => {
     if (req.user.role == 'device'){
-        return res.status(403).jason({
+        return res.status(403).json({
             message: 'Access denied - Offcers and Admins only'
         });
     }
     next();
 };
-module.exports = {protect, adminOnly, officerOrAdmin };
+
+// Device access (Tuktuk Operators/Tracking Devices)
+const deviceOnly = (req, res, next) => {
+    if (req.user.role !== 'device'){
+        return res.status(403).json({
+            message: 'Access denied - Devices only'
+        });
+    }
+    next();
+};
+module.exports = {protect, adminOnly, officerOrAdmin, deviceOnly};

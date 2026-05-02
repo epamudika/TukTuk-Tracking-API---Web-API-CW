@@ -25,28 +25,34 @@ const swaggerOptions = {
     info: {
       title: 'TukTuk Tracking API',
       version: '1.0.0',
-      description: 'Real-Time TukTuk Tracking API for Sri Lanka Police',
+      description: 'API for Sri Lanka Police'
     },
-    servers: [
-      {
-        url: 'http://localhost:5000',
-        description: 'Local Development Server'
-      }
-    ],
     components: {
       securitySchemes: {
         bearerAuth: {
           type: 'http',
           scheme: 'bearer',
           bearerFormat: 'JWT',
+        },
+      },
+      schemas: {
+        // THIS IS THE MISSING PIECE
+        TukTuk: {
+          type: 'object',
+          properties: {
+            _id: { type: 'string' },
+            registrationNumber: { type: 'string' },
+            driverName: { type: 'string' },
+            driverNIC: { type: 'string' },
+            province: { type: 'string' },
+            district: { type: 'string' },
+            isActive: { type: 'boolean' }
+          }
         }
       }
     },
-    security: [{
-      bearerAuth: []
-    }]
   },
-  apis: ['./routes/*.js'],
+  apis: ['./routes/*.js'], 
 };
 
 const swaggerSpec = swaggerJsdoc(swaggerOptions);
