@@ -48,7 +48,7 @@ const swaggerOptions = {
 
     servers: [
       {
-        url: 'https://your-tuktuk-api.onrender.com',
+        url: 'https://tuktuk-tracking-api-web-api-cw-erandip.onrender.com',
         description: 'Production Server (Render)'
       }
     ],
