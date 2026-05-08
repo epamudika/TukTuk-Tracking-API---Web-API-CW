@@ -48,8 +48,8 @@ const swaggerOptions = {
 
     servers: [
       {
-        url: 'http://localhost:5000',
-        description: 'Local Development Server'
+        url: 'https://your-tuktuk-api.onrender.com',
+        description: 'Production Server (Render)'
       }
     ],
     components: {
@@ -91,8 +91,8 @@ app.use('/api/police-stations', policeStationRoutes);
 // Home Route
 app.get('/', (req, res) => {
   res.json({ 
-    message: 'TukTuk Tracking API is running...',
-    docs: 'http://localhost:5000/api-docs'
+    message: 'TukTuk Tracking API is running...'
+    //docs: 'http://localhost:5000/api-docs'
   });
 });
 
