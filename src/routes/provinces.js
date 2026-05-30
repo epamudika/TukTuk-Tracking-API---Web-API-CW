@@ -1,6 +1,18 @@
 const express = require('express');
 const router = express.Router();
 
+const provinces = [
+  { code: 'WP', name: 'Western Province' },
+  { code: 'CP', name: 'Central Province' },
+  { code: 'SP', name: 'Southern Province' },
+  { code: 'NW', name: 'North Western Province' },
+  { code: 'NC', name: 'North Central Province' },
+  { code: 'NP', name: 'Northern Province' },
+  { code: 'EP', name: 'Eastern Province' },
+  { code: 'UP', name: 'Uva Province' },
+  { code: 'SG', name: 'Sabaragamuwa Province' }
+];
+
 /**
  * @swagger
  * components:
@@ -12,15 +24,9 @@ const router = express.Router();
  *           type: string
  *         name:
  *           type: string
- *     District:
- *       type: object
- *       properties:
- *         code:
- *           type: string
- *         name:
- *           type: string
- *         provinceCode:
- *           type: string
+ *       example:
+ *         code: 'WP'
+ *         name: 'Western Province'
  */
 
 /**
@@ -39,6 +45,31 @@ const router = express.Router();
  *     responses:
  *       200:
  *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Province'
+ *             example:
+ *               - code: 'WP'
+ *                 name: 'Western Province'
+ *               - code: 'CP'
+ *                 name: 'Central Province'
+ *               - code: 'SP'
+ *                 name: 'Southern Province'
+ *               - code: 'NW'
+ *                 name: 'North Western Province'
+ *               - code: 'NC'
+ *                 name: 'North Central Province'
+ *               - code: 'NP'
+ *                 name: 'Northern Province'
+ *               - code: 'EP'
+ *                 name: 'Eastern Province'
+ *               - code: 'UP'
+ *                 name: 'Uva Province'
+ *               - code: 'SG'
+ *                 name: 'Sabaragamuwa Province'
  *   post:
  *     summary: Create a province 
  *     tags: [Provinces]
@@ -49,7 +80,7 @@ const router = express.Router();
  *         description: Created
  */
 router.route('/')
-    .get((req, res) => res.json({ message: "All provinces" }))
+    .get((req, res) => res.json(provinces))
     .post((req, res) => res.json({ message: "Province created" }));
 
 /**
@@ -85,7 +116,14 @@ router.route('/')
  *         description: Deleted
  */
 router.route('/:code')
-    .get((req, res) => res.json({ message: "Single province" }))
+    .get((req, res) => {
+        const province = provinces.find(p => p.code === req.params.code);
+        if (province) {
+            res.json(province);
+        } else {
+            res.status(404).json({ message: "Province not found" });
+        }
+    })
     .patch((req, res) => res.json({ message: "Province updated" }))
     .delete((req, res) => res.json({ message: "Province deleted" }));
 

@@ -48,6 +48,10 @@ const swaggerOptions = {
 
     servers: [
       {
+        url: 'http://localhost:5000',
+        description: 'Local Development Server'
+      },
+      {
         url: 'https://tuktuk-tracking-api-web-api-cw-erandip.onrender.com',
         description: 'Production Server (Render)'
       }
