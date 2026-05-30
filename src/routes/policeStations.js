@@ -1,62 +1,31 @@
 const express = require('express');
 const router = express.Router();
+const PoliceStation = require('../models/PoliceStations'); 
 
-/**
- * @swagger
- * components:
- *   schemas:
- *     PoliceStation:
- *       type: object
- *       properties:
- *         name:
- *           type: string
- *         districtCode:
- *           type: string
- *     LocationPing:
- *       type: object
- *       required:
- *         - tuktukId
- *         - latitude
- *         - longitude
- *       properties:
- *         tuktukId:
- *           type: string
- *         latitude:
- *           type: number
- *         longitude:
- *           type: number
- *         timestamp:
- *           type: string
- *           format: date-time
- */
-
-/**
- * @swagger
- * tags:
- *   name: Police Stations
- *   description: Police station administration — can read all and write only Admin
- */
-
-/**
- * @swagger
- * /api/police-stations:
- *   get:
- *     summary: Get all police stations
- *     tags: [Police Stations]
- *     responses:
- *       200:
- *         description: Success
- *   post:
- *     summary: Create a police station 
- *     tags: [Police Stations]
- *     security:
- *       - bearerAuth: []
- *     responses:
- *       201:
- *         description: Created
- */
 router.route('/')
-    .get((req, res) => res.json({ message: "All police stations" }))
-    .post((req, res) => res.json({ message: "Station created" }));
+    .get(async (req, res) => {
+        try {
+            const stations = await PoliceStation.find();
+            res.status(200).json(stations);
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
+    })
+    .post(async (req, res) => {
+        try {
+            const { name, districtCode } = req.body;
+            
+            if (!name || !districtCode) {
+                return res.status(400).json({ error: "Name and districtCode are required." });
+            }
+
+            const newStation = new PoliceStation({ name, districtCode });
+            const savedStation = await newStation.save();
+            
+            res.status(201).json(savedStation);
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
+    });
 
 module.exports = router;

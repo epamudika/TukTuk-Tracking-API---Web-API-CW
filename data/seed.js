@@ -8,6 +8,7 @@ const LocationLog = require('../src/models/LocationLog');
 const User = require('../src/models/User');
 const Province = require('../src/models/Province');
 const District = require('../src/models/District');
+const PoliceStation = require('../src/models/PoliceStation');
 
 const districts = [
     { name: 'Colombo', province: 'Western' },
