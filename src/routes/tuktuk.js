@@ -150,11 +150,8 @@ router.get('/search/:regNumber', protect, officerOrAdmin, async (req, res) => {
  *       200:
  *         description: Updated successfully
  * 
- *   /**
- * 
  *   delete:
- *     summary: Deactivate a TukTuk from the system (Admin Only)
- *     description: Sets isActive to false instead of removing from database
+ *     summary: Diactivate a TukTuk from the system (Admin Only)
  *     tags: [Tuktuks]
  *     security:
  *       - bearerAuth: []
@@ -162,13 +159,10 @@ router.get('/search/:regNumber', protect, officerOrAdmin, async (req, res) => {
  *       - in: path
  *         name: id
  *         required: true
- *         schema:
- *           type: string
+ *         schema: { type: string }
  *     responses:
  *       200:
- *         description: TukTuk deactivated successfully
- *       404:
- *         description: TukTuk not found
+ *         description: Deleted successfully
  */
 
 
@@ -204,28 +198,33 @@ router.put('/:id', protect, adminOnly, async (req, res) => {
     }
 });
 
-
-
-// DELETE (Soft Delete) - deactivate tuktuk (Admin Only)
+// DELETE tuktuk (Admin Only)
 router.delete('/:id', protect, adminOnly, async (req, res) => {
     try {
-        // Find tuktuk first
-        const tuktuk = await TukTuk.findById(req.params.id);
+        const tuktuk = await TukTuk.findByIdAndDelete(req.params.id);
         if (!tuktuk) {
             return res.status(404).json({ message: 'TukTuk not found' });
         }
+        res.status(200).json({ message: 'TukTuk deleted successfully' });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
 
-        // Soft delete - set isActive to false
-        tuktuk.isActive = false;
-        await tuktuk.save();
+router.post('/ping', protect, deviceOnly, async (req, res) => {
+    try {
+        const { tukTukId, latitude, longitude } = req.body;
+        
+        const newLog = await LocationLog.create({
+            tukTukId,
+            latitude,
+            longitude,
+            timestamp: new Date()
+        });
 
-        res.status(200).json({
-            message: 'TukTuk deactivated successfully',
-            data: {
-                id: tuktuk._id,
-                registrationNumber: tuktuk.registrationNumber,
-                isActive: tuktuk.isActive
-            }
+        res.status(201).json({
+            message: 'Location updated successfully',
+            data: newLog
         });
     } catch (err) {
         res.status(500).json({ message: err.message });
