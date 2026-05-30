@@ -3,9 +3,11 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
 // Correct paths for root folder
-const TukTuk = require('../models/TukTuk');
-const LocationLog = require('../models/LocationLog');
-const User = require('../models/User');
+const TukTuk = require('../src/models/TukTuk');
+const LocationLog = require('../src/models/LocationLog');
+const User = require('../src/models/User');
+const Province = require('../src/models/Province');
+const District = require('../src/models/District');
 
 const districts = [
     { name: 'Colombo', province: 'Western' },
